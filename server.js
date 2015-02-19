@@ -22,26 +22,34 @@ server.listen(SOCKET_PORT, HOST, function() {
 function positionsListener(data) {
     _.each(streamLatestWebSockets, function(webSocket) {
         webSocket.emit("positions", data);
-        console.log("Positions sent to " + webSocket.id);
+        console.log("WEB SOCKET. Positions sent to " + webSocket.id);
     });
 }
 
 server.on('connection', function(socket) {
     var gameConnection = new GameConnection(socket);
     var gameCoordinator = new GameCoordinator(gameConnection, games);
-    gameCoordinator.on("game_start", function(params) {
-        console.log("game start");
-        //TODO: this is called currently twice because there are two game coordinators (two players)
 
-        if(latestGame) {
-            latestGame.removeListener("positions", positionsListener);
-            console.log("Removed old positions listener");
-        }
+    gameCoordinator.on("game_create", function(game) {
+        console.log("game_create");
+        game.on("start", function(data) {
+            console.log("game start");
 
-        latestGame = params.game;
-        latestGame.on("positions", positionsListener);
+            if(latestGame) {
+                latestGame.removeListener("positions", positionsListener);
+                console.log("Removed old positions listener");
+            }
 
-        console.log("Latest game: " + latestGame.id);
+            latestGame = game;
+            latestGame.on("positions", positionsListener);
+
+            _.each(streamLatestWebSockets, function(webSocket) {
+                webSocket.emit("start", data);
+                console.log("WEB SOCKET. Start sent to " + webSocket.id);
+            });
+
+            console.log("Latest game: " + latestGame.id);
+        });
     });
 });
 
