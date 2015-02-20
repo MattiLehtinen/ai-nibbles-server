@@ -20,9 +20,17 @@ server.listen(SOCKET_PORT, HOST, function() {
 
 
 function positionsListener(data) {
+    sendToViewers("positions", data);}
+
+function endListener() {
+    sendToViewers("end");
+}
+
+
+function sendToViewers(messageType, data) {
     _.each(streamLatestWebSockets, function(webSocket) {
-        webSocket.emit("positions", data);
-        console.log("WEB SOCKET. Positions sent to " + webSocket.id);
+        webSocket.emit(messageType, data);
+        console.log("WEB SOCKET. '" + messageType + "' sent to " + webSocket.id);
     });
 }
 
@@ -37,11 +45,14 @@ server.on('connection', function(socket) {
 
             if(latestGame) {
                 latestGame.removeListener("positions", positionsListener);
+                latestGame.removeListener("end", endListener);
                 console.log("Removed old positions listener");
             }
 
             latestGame = game;
+
             latestGame.on("positions", positionsListener);
+            latestGame.on("end", endListener);
 
             _.each(streamLatestWebSockets, function(webSocket) {
                 webSocket.emit("start", data);
@@ -50,6 +61,7 @@ server.on('connection', function(socket) {
 
             console.log("Latest game: " + latestGame.id);
         });
+
     });
 });
 
