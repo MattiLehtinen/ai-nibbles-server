@@ -19,6 +19,9 @@ server.listen(SOCKET_PORT, HOST, function() {
 });
 
 
+function appleListener(data) {
+    sendToViewers("apple", data);}
+
 function positionsListener(data) {
     sendToViewers("positions", data);}
 
@@ -52,6 +55,7 @@ server.on('connection', function(socket) {
             latestGame = game;
 
             latestGame.on("positions", positionsListener);
+            latestGame.on("apple", appleListener);
             latestGame.on("end", endListener);
 
             _.each(streamLatestWebSockets, function(webSocket) {
