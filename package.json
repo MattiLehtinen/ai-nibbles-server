@@ -4,7 +4,7 @@
   "description": "Game server for a Q-Basic Nibbles clone.",
   "author": "Matti Lehtinen",
   "license": "MIT",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {},
   "dependencies": {
     "lodash": ">=3.2.0",
