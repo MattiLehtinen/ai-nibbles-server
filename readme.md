@@ -10,15 +10,8 @@
         }
     }}
 
-### Create new game
-
-    {"msg":"create", "data": {
-        "player": {
-            "name": "Will Worm"
-        }
-    }}
     
-Server sends:
+If new game is created, server sends:
 
     {"msg":"created", "data":{"gameId": "442152"}
 
@@ -27,7 +20,7 @@ Server sends:
 
     {"msg":"join", "data":{"gameId": "442152", "player": {"name": "Will Worm"}}}
 
-Server sends:
+Server sends for each player's join:
 
     {"msg":"joined", "data":{"gameId": "442152", "player" {...}}}
 
