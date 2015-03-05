@@ -1,4 +1,21 @@
-#AI Nibbles
+#AI-Nibbles Server
+
+A game server for AI-nibbles game (clone of the classic Q-basic game).
+
+**Note: The server is an early alpha version.**
+
+## Requirements
+
+* [Node.JS] (http://nodejs.org)
+
+## Installation
+
+    git clone https://github.com/MattiLehtinen/ai-nibbles-server.git
+    cd ai-nibbles-server
+    npm install
+
+## Running
+    npm start
 
 ## API
 
