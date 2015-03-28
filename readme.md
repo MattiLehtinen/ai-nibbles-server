@@ -48,7 +48,7 @@ See [sample node.js AI implementation] (https://github.com/MattiLehtinen/ai-nibb
     
 If new game is created, server sends:
 
-    {"msg":"created", "data":{"gameId": "442152"}
+    {"msg":"create", "data":{"gameId": "442152"}
 
 
 ### Join existing game
@@ -57,7 +57,7 @@ If new game is created, server sends:
 
 Server sends for each player's join:
 
-    {"msg":"joined", "data":{"gameId": "442152", "player" {...}}}
+    {"msg":"join", "data":{"gameId": "442152", "player" {...}}}
 
 ### Game starts
 
