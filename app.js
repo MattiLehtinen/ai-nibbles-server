@@ -1,4 +1,5 @@
-var GameServer = require("./lib/game-server.js");
+var common = require('./lib/common.js'),
+    GameServer = require("./lib/game-server.js");
 
 var HOST = undefined; // Accept connections to any IPv4 address
 var GAME_SERVER_SOCKET_PORT = 6969;
@@ -9,5 +10,5 @@ gameServer.start(function(err) {
     if(err) {
         return console.log(err);
     }
-    console.log("Game server fully started.");
+    common.log("Game server fully started.");
 });
